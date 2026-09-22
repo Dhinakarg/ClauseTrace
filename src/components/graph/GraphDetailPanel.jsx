@@ -190,7 +190,7 @@ export function GraphDetailPanel({
         <div className="flex flex-wrap gap-2">
           {node.clauseId && onOpenSource ? (
             <Button size="sm" variant="primary" onClick={() => onOpenSource(node.clauseId)}>
-              View source â†’
+              View source →
             </Button>
           ) : null}
           {onOpenTimeline ? (
@@ -258,7 +258,7 @@ export function GraphDetailPanel({
                 onClick={() => onOpenSource(node.clauseId)}
                 className="text-xs font-semibold text-accent-700 hover:underline"
               >
-                View source evidence â†’
+                View source evidence →
               </button>
             ) : null}
           </div>

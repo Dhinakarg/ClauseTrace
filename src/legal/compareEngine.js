@@ -14,7 +14,7 @@
  *     relationship_changed.
  *  2. text layer    â€” a word-level diff of clauses whose wording moved.
  *  3. structure layer â€” the legal skeleton the document states
- *     ("1.1 Payment â†’ 30 days" before, "1.1 Payment â†’ 15 days" after).
+ *     ("1.1 Payment → 30 days" before, "1.1 Payment → 15 days" after).
  *
  * Every change keeps the citations from both versions, so nothing about the
  * comparison is asserted without source text behind it.
@@ -526,7 +526,7 @@ function capitalise(text) {
   return value ? `${value[0].toUpperCase()}${value.slice(1)}` : value;
 }
 
-/** Singular, lower-case noun for a scope: "obligations" â†’ "obligation". */
+/** Singular, lower-case noun for a scope: "obligations" → "obligation". */
 export function scopeNoun(scopeId) {
   const label = compareScope(scopeId)?.label ?? 'Record';
   return label.replace(/s$/, '').toLowerCase();
@@ -535,14 +535,14 @@ export function scopeNoun(scopeId) {
 export function fieldPhrase(field) {
   const before = field.beforeDisplay ?? 'not recorded';
   const after = field.afterDisplay ?? 'not recorded';
-  return `${field.label}: ${truncate(before, 80)} â†’ ${truncate(after, 80)}`;
+  return `${field.label}: ${truncate(before, 80)} → ${truncate(after, 80)}`;
 }
 
 /** Short label used in the change list. */
 export function changeLabel(change) {
   if (!change) return 'Change';
   if (change.changeType === CHANGE_TYPES.RELATIONSHIP_CHANGED) {
-    return `${change.beforeDisplay} â†’ ${change.afterDisplay}`;
+    return `${change.beforeDisplay} → ${change.afterDisplay}`;
   }
   return change.afterLabel ?? change.beforeLabel ?? change.label ?? change.entityId;
 }
@@ -1084,7 +1084,7 @@ function structureFact({ kind, subject, phrase, clauseId = null, entityId, entit
     subject,
     subjectKey: normalizePhrase(subject),
     phrase,
-    text: phrase ? `${subject} â†’ ${phrase}` : subject,
+    text: phrase ? `${subject} → ${phrase}` : subject,
     clauseId,
     entityId,
     entityType,
@@ -1095,7 +1095,7 @@ function structureFact({ kind, subject, phrase, clauseId = null, entityId, entit
 /**
  * The legal skeleton the document states: which clause or obligation carries
  * which timing, date or trigger. This is what lets the UI say
- * "1.1 Payment â†’ 30 days" before and "1.1 Payment â†’ 15 days" after.
+ * "1.1 Payment → 30 days" before and "1.1 Payment → 15 days" after.
  */
 export function buildStructureFacts(model) {
   if (!model) return [];
@@ -1455,7 +1455,7 @@ export function buildExecutiveRiskShiftSummary(changes = [], _text = [], _struct
   for (const change of deadlineChanges) {
     if (change.period?.direction === 'shortened') {
       const daysNote = change.period.beforeDays && change.period.afterDays
-        ? ` (${change.period.beforeDays} days â†’ ${change.period.afterDays} days)`
+        ? ` (${change.period.beforeDays} days → ${change.period.afterDays} days)`
         : '';
       highlights.push({
         type: 'deadline-shortened',
@@ -1464,7 +1464,7 @@ export function buildExecutiveRiskShiftSummary(changes = [], _text = [], _struct
       });
     } else if (change.period?.direction === 'extended') {
       const daysNote = change.period.beforeDays && change.period.afterDays
-        ? ` (${change.period.beforeDays} days â†’ ${change.period.afterDays} days)`
+        ? ` (${change.period.beforeDays} days → ${change.period.afterDays} days)`
         : '';
       highlights.push({
         type: 'deadline-extended',

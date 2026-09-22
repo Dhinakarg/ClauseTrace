@@ -2,7 +2,7 @@
  * GraphPage â€” Redesigned Relationship Graph with Progressive Disclosure.
  *
  * Built around human comprehension: "Help me understand the relationships around something important."
- * Answers: Who â†’ must do what â†’ when â†’ triggered by what â†’ with what consequence?
+ * Answers: Who → must do what → when → triggered by what → with what consequence?
  *
  * Default mode: Focused view (5-10 nodes centered around a key obligation).
  * Mode toggle: Focused view | Full map | Accessible list.
@@ -440,10 +440,10 @@ export function GraphPage() {
             <Panel title="How to explore" subtitle="Understanding contract relationships">
               <ul className="list-disc space-y-1.5 pl-4 text-xs text-ink-700">
                 <li>
-                  <strong>Focused view</strong> concentrates on one relationship chain at a time (Party â†’ Obligation â†’ Trigger â†’ Deadline â†’ Consequence).
+                  <strong>Focused view</strong> concentrates on one relationship chain at a time (Party → Obligation → Trigger → Deadline → Consequence).
                 </li>
                 <li>
-                  Click <strong>View source â†’</strong> to jump directly to the exact clause citations in the document.
+                  Click <strong>View source →</strong> to jump directly to the exact clause citations in the document.
                 </li>
                 <li>
                   Use <strong>Expand</strong> (1 level, 2 levels, All) to progressively reveal wider connected entities.

@@ -148,7 +148,7 @@ describe('compareModels: modified records', () => {
     expect(change.changeType).toBe(CHANGE_TYPES.MODIFIED);
     expect(change.changedFields).toContain('summary');
     expect(change.summary).toMatch(
-      /Summary: Pay undisputed invoices within 30 days\. â†’ Pay undisputed invoices within 15 days\./,
+      /Summary: Pay undisputed invoices within 30 days\. → Pay undisputed invoices within 15 days\./,
     );
     expect(change.clauseIds).toContain('cl_payment');
   });
@@ -299,8 +299,8 @@ describe('compareModels: structure layer', () => {
   it('states the clause timing before and after', () => {
     const entry = result.structure.changes.find((change) => change.kind === 'clause-period');
     expect(entry).toBeTruthy();
-    expect(entry.beforeText).toBe('1.1 PAYMENT â†’ 30 days');
-    expect(entry.afterText).toBe('1.1 PAYMENT â†’ 15 days');
+    expect(entry.beforeText).toBe('1.1 PAYMENT → 30 days');
+    expect(entry.afterText).toBe('1.1 PAYMENT → 15 days');
     expect(entry.changeType).toBe(CHANGE_TYPES.MODIFIED);
     expect(entry.clauseIds).toContain('cl_payment');
   });
