@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-canvas text-ink-900;
+    font-feature-settings: 'kern', 'liga', 'tnum';
+  }
+
+  /* Legal documents in this app are dense text; keep focus obvious for
+     keyboard users without adding noise for everyone else. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent-500 ring-offset-2 ring-offset-canvas;
+  }
+
+  ::selection {
+    @apply bg-accent-100;
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded border border-ink-200 bg-surface shadow-raised;
+  }
+
+  .panel-header {
+    @apply flex items-center justify-between gap-3 border-b border-ink-200 px-4 py-3;
+  }
+
+  .panel-title {
+    @apply text-sm font-semibold text-ink-900;
+  }
+
+  .label-eyebrow {
+    @apply text-2xs font-semibold uppercase tracking-label text-ink-500;
+  }
+
+  .field-label {
+    @apply mb-1 block text-xs font-medium text-ink-700;
+  }
+
+  .input {
+    @apply w-full rounded border border-ink-200 bg-surface px-3 py-2 text-sm text-ink-900 placeholder:text-ink-400 focus:border-accent-500;
+  }
+
+  .table-base {
+    @apply w-full border-collapse text-left text-sm;
+  }
+
+  .table-base th {
+    @apply border-b border-ink-200 px-3 py-2 text-2xs font-semibold uppercase tracking-label text-ink-500;
+  }
+
+  .table-base td {
+    @apply border-b border-ink-100 px-3 py-2 align-top text-ink-800;
+  }
+
+  .quote-block {
+    @apply rounded-sm border-l-2 border-accent-300 bg-accent-50 px-3 py-2 font-serif text-[0.95rem] leading-relaxed text-ink-800;
+  }
+}
+
+/* PDF.js text layer placeholder styling (used by future in-document viewer). */
+.pdf-page {
+  @apply relative mx-auto bg-white shadow-overlay;
+}
