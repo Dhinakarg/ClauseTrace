@@ -40,14 +40,19 @@ const PIPELINE = [
 
 export function HomePage() {
   const state = useAppStore();
-  const { loadDemoWorkspace } = useAppState();
+  const { loadDemoWorkspace, selectDocument } = useAppState();
   const navigate = useNavigate();
   const summary = selectWorkspaceSummary(state);
   const documents = selectDocumentSummaries(state);
 
   const handleLoadDemo = async () => {
-    await loadDemoWorkspace();
-    navigate(routeBuilders.documents());
+    const docId = await loadDemoWorkspace();
+    if (docId) {
+      selectDocument(docId);
+      navigate(routeBuilders.workspace(docId));
+    } else {
+      navigate(routeBuilders.documents());
+    }
   };
 
   return (
