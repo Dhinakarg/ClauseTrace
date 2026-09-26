@@ -8,7 +8,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FilePlus2, FileText, RefreshCw, Trash2 } from 'lucide-react';
+import { FilePlus2, FileText, RefreshCw, Trash2, RotateCcw } from 'lucide-react';
 import { Button } from '../components/ui/Button.jsx';
 import { Badge, severityTone } from '../components/ui/Badge.jsx';
 import { Callout, EmptyState, Panel, ProgressMeter } from '../components/ui/Panel.jsx';
@@ -21,14 +21,16 @@ import { pendingStages } from '../documents/pipeline.js';
 import { routeBuilders } from '../app/navigation.js';
 import { useAppState, useAppStore } from '../app/AppProvider.jsx';
 import { selectDocumentSummaries } from '../state/selectors.js';
+import { ResetModal } from '../components/common/ResetModal.jsx';
 
 export function DocumentsPage() {
   const state = useAppStore();
-  const { importFile, loadDemoWorkspace, removeDocument, reanalyzeDocument, selectDocument } =
+  const { importFile, loadDemoWorkspace, removeDocument, reanalyzeDocument, selectDocument, resetWorkspace } =
     useAppState();
   const navigate = useNavigate();
 
   const [run, setRun] = useState(null);
+  const [resetOpen, setResetOpen] = useState(false);
   const documents = selectDocumentSummaries(state);
 
   /** Starts a pipeline run and mirrors its stages into local state. */
@@ -114,15 +116,32 @@ export function DocumentsPage() {
               obligations, renewal conditions, deadlines, a consequence and one deliberate
               contradiction between clauses. It runs through exactly the same pipeline as an upload.
             </p>
-            <Button
-              variant="primary"
-              icon={FilePlus2}
-              className="mt-3"
-              onClick={handleDemo}
-              disabled={busy}
-            >
-              Load the demo agreement
-            </Button>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Button
+                variant="primary"
+                icon={FilePlus2}
+                onClick={handleDemo}
+                disabled={busy}
+              >
+                Load the demo agreement
+              </Button>
+              <Button
+                variant="ghost"
+                icon={RotateCcw}
+                onClick={() => setResetOpen(true)}
+                disabled={busy}
+              >
+                Reset workspace
+              </Button>
+            </div>
+            <ResetModal
+              open={resetOpen}
+              onClose={() => setResetOpen(false)}
+              onConfirm={() => {
+                resetWorkspace();
+                navigate(routeBuilders.home());
+              }}
+            />
           </div>
 
           <div className="mt-4">

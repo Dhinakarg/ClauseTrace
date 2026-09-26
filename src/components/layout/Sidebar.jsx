@@ -7,7 +7,7 @@
  */
 
 import { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { FileText, X } from 'lucide-react';
 import { PRIMARY_NAV, isActivePath, routeBuilders, workspaceLinks } from '../../app/navigation.js';
 import { APP_NAME, APP_TAGLINE } from '../../content/notices.js';
@@ -24,6 +24,7 @@ function navClass(active) {
 
 export function Sidebar({ onNavigate = null, onClose = null, variant = 'desktop' }) {
   const location = useLocation();
+  const navigate = useNavigate();
   const { state, selectDocument, resetWorkspace } = useAppState();
   const [resetOpen, setResetOpen] = useState(false);
   const entry = selectActiveEntry(state);
@@ -146,7 +147,7 @@ export function Sidebar({ onNavigate = null, onClose = null, variant = 'desktop'
             Reset workspace
           </button>
         </p>
-        <ResetModal open={resetOpen} onClose={() => setResetOpen(false)} onConfirm={resetWorkspace} />
+        <ResetModal open={resetOpen} onClose={() => setResetOpen(false)} onConfirm={() => { resetWorkspace(); navigate(routeBuilders.home()); }} />
       </footer>
     </div>
   );
