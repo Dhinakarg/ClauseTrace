@@ -9,6 +9,13 @@
       content="ClauseTrace - evidence-backed legal document intelligence workspace."
     />
     <title>ClauseTrace</title>
+  <script>
+      if (window.location.hostname.endsWith('github.io') && !window.location.pathname.includes('/docs/')) {
+        var base = window.location.pathname;
+        if (!base.endsWith('/')) base += '/';
+        window.location.replace(base + 'docs/' + window.location.search + window.location.hash);
+      }
+    </script>
   </head>
   <body class="h-full bg-canvas text-ink-900 antialiased">
     <div id="root" class="h-full"></div>
